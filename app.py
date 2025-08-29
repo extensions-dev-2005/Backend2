@@ -400,10 +400,11 @@ async def transcribe_audio(
             with open(temp_file_path, "rb") as file:
                 transcription_response = groq_client.audio.transcriptions.create(
                     file=(audio.filename or f"audio.{audio_format}", file.read()),
-                    model="whisper-large-v3",
+                    model="whisper-large-v3",   # ✅ keep this (already correct)
                     response_format="verbose_json",
                     temperature=0.0
                 )
+
             
             # Process transcription result
             raw_text = transcription_response.text.strip() if transcription_response.text else ""
@@ -564,7 +565,7 @@ DECISIONS: [any decisions made]"""
         
         response = groq_client.chat.completions.create(
             messages=messages,
-            model="llama-3.1-8b-instant",
+            model="openai/gpt-oss-120b",
             max_tokens=500,
             temperature=0.3,
             top_p=0.9
@@ -670,7 +671,7 @@ CONFIDENCE: [High/Medium/Low]"""
         
         response = groq_client.chat.completions.create(
             messages=messages,
-            model="llama-3.1-8b-instant", 
+            model="openai/gpt-oss-120b", 
             max_tokens=300,
             temperature=0.4,
             top_p=0.9
