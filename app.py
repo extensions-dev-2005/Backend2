@@ -402,7 +402,8 @@ async def transcribe_audio(
                     file=(audio.filename or f"audio.{audio_format}", file.read()),
                     model="whisper-large-v3",   # ✅ keep this (already correct)
                     response_format="verbose_json",
-                    temperature=0.0
+                    temperature=0.0,
+                    language='en'
                 )
 
             
